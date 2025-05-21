@@ -7,4 +7,8 @@ add_executable(clox main.c chunk.c memory.c debug.c chunk.h common.h debug.h mem
         value.h
         value.c
         vm.h
-        vm.c)
+        vm.c
+        compiler.c
+        compiler.h
+        scanner.c
+        scanner.h)

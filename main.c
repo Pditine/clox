@@ -64,6 +64,10 @@ static void runFile(const char* path) {
 int main(int argc, const char* argv[]) {
     initVM();
 
+#ifdef clox_debug_h
+    runFile("../lox/main.lox");
+#endif
+
     if (argc == 1) {
         repl();
     } else if (argc == 2) {

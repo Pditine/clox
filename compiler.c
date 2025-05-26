@@ -5,6 +5,10 @@
 #include "compiler.h"
 #include "scanner.h"
 
+#ifdef DEBUG_PRINT_CODE
+#include "debug.h"
+#endif
+
 typedef struct {
     Token current;
     Token previous;
@@ -78,6 +82,15 @@ static void advance() {
     }
 }
 
+static void consume(TokenType type, const char* message) {
+    if (parser.current.type == type) {
+        advance();
+        return;
+    }
+
+    errorAtCurrent(message);
+}
+
 static void emitByte(uint8_t byte) {
     writeChunk(currentChunk(), byte, parser.previous.line);
 }
@@ -108,7 +121,17 @@ static void emitConstant(Value value) {
 
 static void endCompiler() {
     emitReturn();
+
+#ifdef DEBUG_PRINT_CODE
+    if (!parser.hadError) {
+        disassembleChunk(currentChunk(), "code");
+    }
+#endif
 }
+
+static void expression();
+static ParseRule* getRule(TokenType type);
+static void parsePrecedence(Precedence precedence);
 
 static void binary() {
     TokenType operatorType = parser.previous.type;
@@ -191,20 +214,28 @@ ParseRule rules[] = {
 };
 
 static void parsePrecedence(Precedence precedence) {
-    // What goes here?
+    advance();
+    ParseFn prefixRule = getRule(parser.previous.type)->prefix;
+    if (prefixRule == NULL) {
+        error("Expect expression.");
+        return;
+    }
+
+    prefixRule();
+
+    while (precedence <= getRule(parser.current.type)->precedence) {
+        advance();
+        ParseFn infixRule = getRule(parser.previous.type)->infix;
+        infixRule();
+    }
+}
+
+static ParseRule* getRule(TokenType type) {
+    return &rules[type];
 }
 
 static void expression() {
     parsePrecedence(PREC_ASSIGNMENT);
-}
-
-static void consume(TokenType type, const char* message) {
-    if (parser.current.type == type) {
-        advance();
-        return;
-    }
-
-    errorAtCurrent(message);
 }
 
 bool compile(const char* source, Chunk* chunk) {

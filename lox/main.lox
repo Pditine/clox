@@ -2,4 +2,6 @@
 
 //true
 
-!(5 - 4 > 3 * 2 == !nil)
+//!(5 - 4 > 3 * 2 == !nil) 41
+
+"string" + " " + "concatenation" + "!"

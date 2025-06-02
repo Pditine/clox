@@ -13,4 +13,6 @@ add_executable(clox main.c chunk.c memory.c debug.c chunk.h common.h debug.h mem
         scanner.c
         scanner.h
         object.c
-        object.h)
+        object.h
+        table.c
+        table.h)

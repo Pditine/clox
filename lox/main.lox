@@ -4,4 +4,11 @@
 
 //!(5 - 4 > 3 * 2 == !nil) 41
 
-"string" + " " + "concatenation" + "!"
+//"string" + " " + "concatenation" + "!"
+
+print 10 + 2;
+
+var breakfast = "beignets";
+var beverage = "cafe au lait";
+breakfast = "beignets with " + beverage;
+print breakfast;

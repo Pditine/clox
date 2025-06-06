@@ -1,14 +1,23 @@
-//(-1 + 2) * 3 - -4
+// (-1 + 2) * 3 - -4
 
-//true
+// true
 
-//!(5 - 4 > 3 * 2 == !nil) 41
+// !(5 - 4 > 3 * 2 == !nil) 41
 
-//"string" + " " + "concatenation" + "!"
+// "string" + " " + "concatenation" + "!"
 
-print 10 + 2;
+// print 10 + 2;
 
-var breakfast = "beignets";
-var beverage = "cafe au lait";
-breakfast = "beignets with " + beverage;
-print breakfast;
+// var breakfast = "beignets";
+// var beverage = "cafe au lait";
+// breakfast = "beignets with " + beverage;
+// print breakfast;
+
+{
+    var a = 1;
+    var b = 2;
+    {
+        a = 3;
+        print a + b;
+    }
+}

@@ -19,7 +19,6 @@ typedef enum {
     OBJ_STRING,
   } ObjType;
 
-
 struct Obj {
     ObjType type;
     struct Obj* next;
@@ -31,6 +30,13 @@ typedef struct {
     Chunk chunk;
     ObjString* name;
 } ObjFunction;
+
+typedef Value (*NativeFn)(int argCount, Value* args);
+
+typedef struct {
+    Obj obj;
+    NativeFn function;
+} ObjNative;
 
 struct ObjString {
     Obj obj;

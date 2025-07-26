@@ -39,9 +39,19 @@
 //
 // a();
 
-fun Test()
-{
-    print (-1 + 2) * 3 - -4;
+// fun Test()
+// {
+//     print (-1 + 2) * 3 - -4;
+// }
+//
+// print Test;
+
+
+fun fib(n) {
+  if (n < 2) return n;
+  return fib(n - 2) + fib(n - 1);
 }
 
-print Test;
+var start = clock();
+print fib(5);
+print clock() - start;
